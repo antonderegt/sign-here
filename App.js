@@ -1,19 +1,21 @@
 import React, { Component } from 'react';
 import {
   StyleSheet,
-  Text,
   View,
-  TextInput,
-  Button
 } from 'react-native';
+import {
+  Text,
+  Item,
+  Label,
+  Input,
+  Button,
+} from 'native-base';
+import Form from 'react-native-form'
 
 export default class App extends Component{
   constructor(props) {
     super(props);
-    this.state = { 
-      firstName: 'Thomas',
-      lastName: 'Ranger',
-      signature: ''
+    this.state = {
      };
   }
 
@@ -26,38 +28,21 @@ export default class App extends Component{
         <Text style={styles.text}>
           All you have to do is sign here
         </Text><Text></Text><Text></Text>
-        <View style={styles.form}>
-          <Text style={styles.formText}>
-            First Name
-          </Text>
-          <TextInput
-          style={styles.textInput}
-          onChangeText={(firstName) => this.setState({firstName})}
-          value={this.state.firstName}
-        />
-          <Text style={styles.formText}>
-            Last Name
-          </Text>
-          <TextInput
-            style={styles.textInput}
-            onChangeText={(lastName) => this.setState({lastName})}
-            value={this.state.lastName}
-          />
-          <Text style={styles.formText}>
-            Signature
-          </Text>
-          <TextInput
-            style={styles.signatureInput}
-            onChangeText={(signature) => this.setState({signature})}
-            value={this.state.signature}
-            multiline = {true}
-          />
-          <Button
-            onPress={()=>console.log('Pressed')}
-            title="SELL IT"
-            color="#841584"
-          />
-          </View>
+        <Form ref="credentials" style={styles.form} >
+          <Item floatingLabel style={{marginTop:10}}>
+            <Label style={{marginLeft: 15}}>First name</Label>
+            <Input style={{marginLeft: 25}} name="firstName" type="TextInput" />
+          </Item>
+          <Item floatingLabel style={{marginTop:10}}>
+            <Label style={{marginLeft: 15}}>Last name</Label>
+            <Input style={{marginLeft: 25}} name="lastName" type="TextInput" />
+          </Item>
+          <Item floatingLabel style={{marginTop:10}}>
+            <Label style={{marginLeft: 15}}>Signature</Label>
+            <Input style={{marginLeft: 25}} name="signature" type="TextInput" />
+          </Item>
+            <Button Block primary onPress={() => {console.log('Button clicked')}} style={styles.button}><Text>Sell it</Text></Button>
+        </Form>
       </View>
     );
   }
@@ -81,23 +66,9 @@ const styles = StyleSheet.create({
     marginBottom: 5,
   },
   form: {
-    width: '65%',
-    backgroundColor: '#F5FCFF',
+    width: '80%'
   },
-  formText: {
-    fontWeight: 'bold'
-  },
-  textInput: {
-    textAlign: 'left',
-    color: '#333333',
-    backgroundColor: '#FFF',
-    marginBottom: 5,
-  },
-  signatureInput: {
-    textAlign: 'left',
-    color: '#333333',
-    backgroundColor: '#FFF',
-    marginBottom: 5,
-    height: 60
-  },
+  button: {
+    margin: 10
+  }
 });
