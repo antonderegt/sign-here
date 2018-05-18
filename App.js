@@ -10,6 +10,7 @@ import {
   Input,
   Button,
 } from 'native-base';
+import firebase from './config'
 import Form from 'react-native-form'
 
 export default class App extends Component{
@@ -17,6 +18,12 @@ export default class App extends Component{
     super(props);
     this.state = {
      };
+     this.itemsRef = firebase.database().ref().child(`people`)
+  }
+
+  pushToFirebase() {
+    let formValues = this.refs.soulForm.getValues()
+    this.itemsRef.push(formValues)
   }
 
   render() {
@@ -28,7 +35,7 @@ export default class App extends Component{
         <Text style={styles.text}>
           All you have to do is sign here
         </Text><Text></Text><Text></Text>
-        <Form ref="credentials" style={styles.form} >
+        <Form ref="soulForm" style={styles.form} >
           <Item floatingLabel style={{marginTop:10}}>
             <Label style={{marginLeft: 15}}>First name</Label>
             <Input style={{marginLeft: 25}} name="firstName" type="TextInput" />
@@ -41,7 +48,7 @@ export default class App extends Component{
             <Label style={{marginLeft: 15}}>Signature</Label>
             <Input style={{marginLeft: 25}} name="signature" type="TextInput" />
           </Item>
-            <Button Block primary onPress={() => {console.log('Button clicked')}} style={styles.button}><Text>Sell it</Text></Button>
+            <Button Block primary onPress={() => this.pushToFirebase()} style={styles.button}><Text>Sell it</Text></Button>
         </Form>
       </View>
     );
